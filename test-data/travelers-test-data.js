@@ -79,6 +79,11 @@ const travelers = [{
   "travelerType": "foodie"
 },
 {
+  "id": 96,
+  "name": "Mister Mix-It-Up",
+  "travelerType": "Mule"
+},
+{
   "id": 17,
   "name": "Julian Ullyott",
   "travelerType": "relaxer"
