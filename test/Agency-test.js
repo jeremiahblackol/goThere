@@ -6,6 +6,8 @@ import trips from '../test-data/trips-test-data.js'
 import travelers from '../test-data/travelers-test-data.js'
 import DataRepository from '../src/DataRepository.js'
 import Agency from '../src/Agency.js'
+const spies = require("chai-spies");
+chai.use(spies);
 
 describe('Agency', function() {
 
@@ -157,8 +159,38 @@ describe('Agency', function() {
       }])
   });
 
-  it.skip('should be able to approve or deny a user\'s trip, based on userID', function() {
-    expect(agency.approveOrDenyTripRequest(12)).to.be.a('function')
+  it.skip('should be able to approve or deny any user\'s trip, based on trip id', function() {
+    // opportunuty to use spies
+    expect(agency.approveOrDenyTripRequest(3)).to.be.a('function')
+    expect(agency.allData[1][2]).to.deep.equal({
+      "id": 3,
+      "userID": 12,
+      "destinationID": 22,
+      "travelers": 4,
+      "date": "2020/05/22",
+      "duration": 17,
+      "status": "approved",
+      "suggestedActivities": []
+    })
+
+    expect(dataRepository.allData[1][2]).to.deep.equal({
+      "id": 3,
+      "userID": 12,
+      "destinationID": 22,
+      "travelers": 4,
+      "date": "2020/05/22",
+      "duration": 17,
+      "status": "approved",
+      "suggestedActivities": []
+    })
+  });
+
+  it.skip('should return an error message if invalid trip id is passed in', function() {
+    expect(agency.approveOrDenyTripRequest('hat')).to.equal('Sorry, invalid trip!')
+  });
+
+  it.skip('should return an error message if trip id is valid, but cannot be found', function() {
+    expect(agency.approveOrDenyTripRequest(1000)).to.equal('Sorry, trip #1000 cannot be found!')
   });
 });
 
