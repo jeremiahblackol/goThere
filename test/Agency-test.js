@@ -161,6 +161,7 @@ describe('Agency', function() {
 
   it.skip('should be able to approve or deny any user\'s trip, based on trip id', function() {
     // opportunuty to use spies
+    // needs to spy on whatever click event in the document wiil call this function
     expect(agency.approveOrDenyTripRequest(3)).to.be.a('function')
     expect(agency.allData[1][2]).to.deep.equal({
       "id": 3,
