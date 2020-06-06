@@ -13,6 +13,10 @@ import Agency from '../src/Agency.js'
 
 console.log('This is the JavaScript entry file - your code begins here.');
 
+let documentBody = document.querySelector('body')
+
+documentBody.addEventListener('click', clickHandler)
+
 let travelers;
 let trips;
 let destinations;
@@ -50,3 +54,28 @@ Promise.all([travelers, trips, destinations])
   .catch(err => {
     console.log(err.message)
   })
+
+function clickHandler() {
+  if (event.target.classList.contains('submit-button')) {
+    validateForm()
+  }
+}
+
+
+function validateForm() {
+  const userName = document.querySelector('.user-name').value;
+  const password = document.querySelector('.password').value;
+  const regex = /^traveler([1-9]|[1-4][0-9]|50)$/;
+  const validPassword = 'travel2020';
+  
+  if (regex.test(userName) && password === validPassword) {
+    console.log('traveler')
+  
+  } else if (userName === 'agency' && password === validPassword) {
+    console.log('agency')
+
+  } else {
+    console.log('hey')
+  }
+}
+  
