@@ -1,8 +1,27 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
-;
+$primary-color: #FFE7E2;
+$secondary-color: #59C294;
+$dark-primary: rgba(248, 110, 143, 0.858);
+$font-one: 'Cinzel', serif;
 
 
 body {
-  background: $primary-background;
+  background: $primary-color;
+  justify-content: center;
+  align-items: center;
 }
+
+.validation-form {
+  font-family: $font-one;
+  color: $dark-primary;
+  background: white;
+  border: 4px solid $dark-primary;
+  width: 65%;
+  margin: 0;
+}
+
+span {
+  color: $secondary-color;
+}
+
+

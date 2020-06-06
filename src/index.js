@@ -63,12 +63,13 @@ function clickHandler() {
 
 
 function validateForm() {
-  const userName = document.querySelector('.user-name').value;
-  const password = document.querySelector('.password').value;
+  let userName = document.querySelector('.user-name');
+  let password = document.querySelector('.password');
+  let errorMessage = document.querySelector('.error-message')
   const regex = /^traveler([1-9]|[1-4][0-9]|50)$/;
   const validPassword = 'travel2020';
   
-  if (regex.test(userName) && password === validPassword) {
+  if (regex.test(userName.value) && password.value === validPassword) {
     console.log('traveler')
     // i need to be able to isolate and return all data related to this traveler
     // probably search dataRepository
@@ -77,7 +78,7 @@ function validateForm() {
   
   } 
   
-  if (userName === 'agency' && password === validPassword) {
+  if (userName.value === 'agency' && password.value === validPassword) {
     console.log('agency')
     // instantiate the agency
     // display all pending trips
@@ -85,12 +86,14 @@ function validateForm() {
 
   } 
   
-  if (regex.test(userName) || userName === 'agency' && password !== validPassword) {
-    console.log('Invalid Password')
+  if (regex.test(userName.value) || userName.value === 'agency' && password.value !== validPassword) {
+    password.value = ''
+    errorMessage.innerText = 'Invalid Password' 
   }
 
-  if (!regex.test(userName) || !userName === 'agency' && password === validPassword) {
-    console.log('Invalid Username')
-  }
+  if (!regex.test(userName.value) || userName.value !== 'agency' && password === validPassword) {
+    userName.value = ''
+    errorMessage.innerText = 'Invalid Username'
+  } 
 }
   
