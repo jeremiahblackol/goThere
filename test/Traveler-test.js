@@ -72,6 +72,12 @@ describe('Traveler', function() {
   it.skip('should have an array of traveler\'s past trips', function() {
     expect(traveler.pastTrips).to.be.an('array');
   });
+
+  it.skip('should be able to return traveler\'s total money spent on trips', function() {
+    expect(traveler.pastTrips).to.be.an('array');
+  });
+
+
 });
     
 
