@@ -70,12 +70,27 @@ function validateForm() {
   
   if (regex.test(userName) && password === validPassword) {
     console.log('traveler')
+    // i need to be able to isolate and return all data related to this traveler
+    // probably search dataRepository
+    // instantiate this traveler with relevant information
+    // cards to display traveler information
   
-  } else if (userName === 'agency' && password === validPassword) {
+  } 
+  
+  if (userName === 'agency' && password === validPassword) {
     console.log('agency')
+    // instantiate the agency
+    // display all pending trips
+    // need a search functionality for date and for user
 
-  } else {
-    console.log('hey')
+  } 
+  
+  if (regex.test(userName) || userName === 'agency' && password !== validPassword) {
+    console.log('Invalid Password')
+  }
+
+  if (!regex.test(userName) || !userName === 'agency' && password === validPassword) {
+    console.log('Invalid Username')
   }
 }
   
