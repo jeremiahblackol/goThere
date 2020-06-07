@@ -4,16 +4,19 @@
     <title>Webpack Starter Kit</title>
   </head>
   <body>
-    <h1>Webpack Starter Kit</h1>
     <form class="validation-form">
-      <p>Name</p>
+      <h1>goThere</h1>
+      <p>Username</p>
+      <label for='user-name' class="hidden">Username</label>
       <input class="user-name" type="text">
       <p>Password</p>
+      <label for='password' class='hidden'>Password</label>
       <input class="password" type="text">
+      <div class='error-message'>Please Click Here to Enter</div>
+      <label for='submit-button' class='hidden'>Submit-Button</label>
       <button class="submit-button" type="button"></button>
     </form>
 
-    <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
 
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>

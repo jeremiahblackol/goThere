@@ -1,5 +1,40 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 body {
-  background: radial-gradient(circle, #3f5efb 0%, #fc466b 100%);
+  background: -webkit-gradient(linear, right top, left top, from(#147D66), to(#155FCF));
+  background: linear-gradient(to left, #147D66, #155FCF);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-top: 20%;
+}
+
+.validation-form {
+  width: 55%;
+  height: 24em;
+  background: #FFE7E2;
+  padding-left: 5px;
+}
+
+.validation-form button {
+  width: 61%;
+  height: 10%;
+  margin-top: 12px;
+}
+
+.validation-form input {
+  width: 60%;
+  height: 10%;
+  margin-top: 2px;
+}
+
+.validation-form .error-message {
+  margin-top: 47px;
+}
+
+.hidden {
+  display: none;
 }
 /*# sourceMappingURL=base.css.map */
