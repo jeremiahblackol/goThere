@@ -18,11 +18,19 @@ class DataRepository {
   }
 
   findTraveler(id) {
-    return this.travelers instanceof Array ? this.travelers.find((traveler) => traveler.id === id) : 'User could not be found' 
+    if (id === Number(id) && this.travelers.find((traveler) => traveler.id === id)) {
+      return this.travelers.find((traveler) => traveler.id === id)
+    } else {
+      return 'Sorry, invalid userID!'
+    }
   }
 
-  findUserTrips(id) {
-    return this.trips instanceof Array ? this.trips.filter((trip) => trip.userID === id) : 'User could not be found' 
+  findTravelerTrips(id) {
+    if (id === Number(id) && this.trips.filter((trip) => trip.userID === id).length > 0) {
+      return this.trips.filter((trip) => trip.userID === id)  
+    }  else {
+      return 'Sorry, invalid userID!'
+    }
   }
 }
 
