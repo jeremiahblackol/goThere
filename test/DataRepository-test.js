@@ -17,43 +17,45 @@ describe('DataRepository', function() {
        
   })
 
-  it.skip('should be a function', function() {
+  it('should be a function', function() {
     expect(DataRepository).to.be.a('function');
   });
 
-  it.skip('should instantiate new DataRepositories', function() {
+  it('should instantiate new DataRepositories', function() {
     expect(dataRepository).to.be.an.instanceof(DataRepository);
   });
 
-  it.skip('should be able to hold an array of all data', function() {
+  it('should be able to hold an array of all data', function() {
     expect(dataRepository.allData).to.be.an('array');
     expect(dataRepository.allData[0]).to.be.an('array');
     expect(dataRepository.allData[1]).to.be.an('array');
     expect(dataRepository.allData[2]).to.be.an('array');
   });
 
-  it.skip('should return an error message if any data passed in is not an array', function() {
+  it('should return an error message if any data passed in is not an array', function() {
     dataRepository = new DataRepository([travelers, 'trips', destinations])
     expect(dataRepository.allData).to.be.an('array');
     expect(dataRepository.allData[0]).to.be.an('array');
-    expect(dataRepository.allData[1]).to.equal('Sorry, no trip data could be found at this time!');
+    expect(dataRepository.allData[1]).to.equal('Sorry, no trips data could be found at this time!');
     expect(dataRepository.allData[2]).to.be.an('array');
   });
 
-  it.skip('should return an error message if any data passed in is not an array', function() {
+  it('should return an error message if any data passed in is not an array', function() {
     dataRepository = new DataRepository('data')
     expect(dataRepository.allData).to.equal('Sorry, no data could be found at this time');
   });
 
-  it.skip('should be able to return all information relative to a user, by userID', function() {
-    expect(dataRepository.findAllUserInfo(1)[0]).to.deep.equal(
+  it('should be able to return a traveler', function() {
+    expect(dataRepository.findTraveler(1)).to.deep.equal(
       {  
         "id": 1,
         "name": "Ham Leadbeater",
         "travelerType": "relaxer"
       });
+  });
 
-    expect(dataRepository.findAllUserInfo(1)[1]).to.deep.equal([
+  it('should be able to return a a traveler\'s trip information', function() {
+    expect(dataRepository.findTravelerTrips(1)).to.deep.equal([
       {
         "id": 1,
         "userID": 1,
@@ -76,17 +78,16 @@ describe('DataRepository', function() {
     ])
   });
 
-  it.skip('should return an error message if invalid userID is passed in', function() {
-    expect(dataRepository.findAllUserInfo('flappy')).to.equal('Sorry, invalid userID!')
+  it('should return an error message if invalid userID is passed in', function() {
+    expect(dataRepository.findTraveler('flappy')).to.equal('Sorry, invalid userID!')
+    expect(dataRepository.findTravelerTrips('flappy')).to.equal('Sorry, invalid userID!')
   });
 
-  it.skip('should return an error message if no data can be found relative to user', function() {
-    expect(dataRepository.findAllUserInfo(84)).to.equal('Sorry, no data could be found for user 84')
-    expect(dataRepository.findAllUserInfo(1043)).to.equal('Sorry, no data could be found for user 1043')
-  });
-
-  it.skip('should return a message if user can be found, but no trip data can be found relative to that user', function() {
-    expect(dataRepository.findAllUserInfo(96)).to.equal('Sorry, Mister Mix-It-Up doesn\'nt have any trip information!')
+  it('should return an error message if no data can be found relative to user', function() {
+    expect(dataRepository.findTraveler(69)).to.equal('Sorry, invalid userID!')
+    expect(dataRepository.findTraveler(804)).to.equal('Sorry, invalid userID!')
+    expect(dataRepository.findTravelerTrips(139)).to.equal('Sorry, invalid userID!')
+    expect(dataRepository.findTravelerTrips(1043)).to.equal('Sorry, invalid userID!')
   });
 });
 
