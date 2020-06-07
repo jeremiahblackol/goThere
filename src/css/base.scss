@@ -2,10 +2,12 @@
 @import "mixins.scss";
 
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: linear-gradient(to right, $primary-color, $primary-accent1);
+$primary-background: linear-gradient(to left, $primary-color, $primary-accent1);
 ;
 
 
 body {
   background: $primary-background;
+  display: flex;
+  justify-content: center;
 }

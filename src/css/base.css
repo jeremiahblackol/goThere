@@ -1,6 +1,12 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 body {
-  background: -webkit-gradient(linear, left top, right top, from(#147D66), to(#155FCF));
-  background: linear-gradient(to right, #147D66, #155FCF);
+  background: -webkit-gradient(linear, right top, left top, from(#147D66), to(#155FCF));
+  background: linear-gradient(to left, #147D66, #155FCF);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=base.css.map */
