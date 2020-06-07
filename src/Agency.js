@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import DataRepository from '../src/DataRepository.js'
 
 class Agency extends DataRepository {
@@ -7,13 +8,24 @@ class Agency extends DataRepository {
   }
 
   sortTripsByDate() {
-    let numberedTripDates = this.trips.map((trip) => {
-      trip.date = new Date(trip.date)
-      console.log(trip)
-      return trip
+    return this.trips.sort((a, b) => {
+      if (b.date > a.date) {
+        return -1
+      } else if (b.date < a.date) {
+        return 1
+      }
     })
+    // let shallowCopyOfTrips = this.trips.slice()
+    // let tripsWithSplitDates = shallowCopyOfTrips.map((trip) => {
+    //   trip.date = trip.date.split('/')
+    //   return trip
+    // })
 
-    return numberedTripDates.sort((a, b) => a.date - b.date)
+    // let tripsSortedByYear = tripsWithSplitDates.sort((a, b) => a.date[0] - b.date[0])
+    // // let tripsSortedByMonth = tripsSortedByYear.reduce((byMonth, trip) => {
+
+    // // }, [])
+    // console.log(tripsSortedByYear)
   }
 }
 

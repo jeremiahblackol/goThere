@@ -19,7 +19,7 @@ describe('Traveler', function() {
 
     data = [travelers, trips, destinations]
     dataRepository = new DataRepository(data)
-    travelerInfo = this.dataRepository.findAllUserInfo(12)
+    travelerInfo = dataRepository.findTraveler(12)
     traveler = new Traveler(travelerInfo)
            
   })
@@ -74,10 +74,8 @@ describe('Traveler', function() {
   });
 
   it.skip('should be able to return traveler\'s total money spent on trips', function() {
-    expect(traveler.pastTrips).to.be.an('array');
+    expect(traveler.futureTrips).to.be.an('array');
   });
-
-
 });
     
 
