@@ -23,15 +23,15 @@ describe('Agency', function() {
 
   })
 
-  it.skip('should be a function', function() {
+  it('should be a function', function() {
     expect(Agency).to.be.a('function');
   });
 
-  it.skip('should instantiate new DataRepositories', function() {
+  it('should instantiate new Agencies', function() {
     expect(agency).to.be.an.instanceof(Agency);
   });
 
-  it.skip('should be able to hold an array of all data', function() {
+  it('should be able to hold an array of all data', function() {
     expect(agency.allData).to.be.an('array');
     expect(agency.allData).to.deep.equal(data)
 
@@ -45,27 +45,27 @@ describe('Agency', function() {
     expect(agency.allData[2]).to.deep.equal(data[2])
   });
 
-  it.skip('should return an error message if any data passed in is not an array', function() {
+  it('should return an error message if any data passed in is not an array', function() {
     agency = new Agency([travelers, destinations, 'trips'])
     expect(agency.allData[0]).to.be.an('array');
     expect(agency.allData[1]).to.be.an('array');
-    expect(agency.allData[2]).to.equal('Sorry, no trip data could be found at this time!');
+    expect(agency.allData[2]).to.equal('Sorry, no trips data could be found at this time!');
   });
 
-  it.skip('should return an error message if any data passed in is not an array', function() {
+  it('should return an error message if any data passed in is not an array', function() {
     agency = new Agency('data')
     expect(agency.allData).to.equal('Sorry, no data could be found at this time');
   });
 
-  it.skip('should be able to return all information relative to a user, by userID', function() {
-    expect(agency.findAllUserInfo(1)[0]).to.deep.equal(
+  it('should be able to return all information relative to a user, by userID', function() {
+    expect(agency.findTraveler(1)).to.deep.equal(
       {  
         "id": 1,
         "name": "Ham Leadbeater",
         "travelerType": "relaxer"
       });
 
-    expect(agency.findAllUserInfo(1)[1]).to.deep.equal([
+    expect(agency.findTravelerTrips(1)).to.deep.equal([
       {
         "id": 1,
         "userID": 1,
@@ -88,21 +88,17 @@ describe('Agency', function() {
     ])
   });
 
-  it.skip('should return an error message if invalid userID is passed in', function() {
-    expect(agency.findAllUserInfo('hat')).to.equal('Sorry, invalid userID!')
+  it('should return an error message if invalid userID is passed in', function() {
+    expect(agency.findTraveler('hat')).to.equal('Sorry, invalid userID!')
   });
 
-  it.skip('should return an error message if no data can be found relative to user', function() {
-    expect(agency.findAllUserInfo(84)).to.equal('Sorry, no data could be found for user 84')
-    expect(agency.findAllUserInfo(1043)).to.equal('Sorry, no data could be found for user 1043')
+  it('should return an error message if no data can be found relative to user', function() {
+    expect(agency.findTraveler(84)).to.equal('Sorry, invalid userID!')
+    expect(agency.findTravelerTrips(1043)).to.equal('Sorry, invalid userID!')
   });
 
-  it.skip('should return a message if user can be found, but no trip data can be found relative to that user', function() {
-    expect(agency.findAllUserInfo(96)).to.equal('Sorry, Mister Mix-It-Up doesn\'nt have any trip information!')
-  });
-
-  it.skip('should be able to sort trips by date', function() {
-    expect(agency.sortTripsByDate()[1]).to.deep.equal({
+  it('should be able to sort trips by date', function() {
+    expect(agency.sortTripsByDate()[0]).to.deep.equal({
       "id": 27,
       "userID": 3,
       "destinationID": 7,
@@ -113,7 +109,7 @@ describe('Agency', function() {
       "suggestedActivities": []
     });
 
-    expect(agency.sortTripsByDate()[0]).to.deep.equal({
+    expect(agency.sortTripsByDate()[1]).to.deep.equal({
       "id": 19,
       "userID": 7,
       "destinationID": 47,
