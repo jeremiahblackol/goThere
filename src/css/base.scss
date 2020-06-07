@@ -10,4 +10,32 @@ body {
   background: $primary-background;
   display: flex;
   justify-content: center;
+  padding-top: 20%;
+}
+
+.validation-form {
+  width: 55%;
+  height: 24em;
+  background: $secondary-color;
+  padding-left: 5px;
+
+  button {
+    width: 61%;
+    height: 10%;
+    margin-top: 12px;
+  }
+
+  input {
+    width: 60%;
+    height: 10%;
+    margin-top: 2px;
+  }
+
+  .error-message {
+    margin-top: 47px;
+  }
+}
+
+.hidden {
+  display: none;
 }

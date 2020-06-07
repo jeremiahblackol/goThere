@@ -13,6 +13,10 @@ import Agency from '../src/Agency.js'
 
 console.log('This is the JavaScript entry file - your code begins here.');
 
+let documentBody = document.querySelector('body')
+
+documentBody.addEventListener('click', clickHandler)
+
 let travelers;
 let trips;
 let destinations;
@@ -38,15 +42,58 @@ destinations = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/d
 // PROMISE
 Promise.all([travelers, trips, destinations])
   .then(data => {
-    travelersData = data[0];
-    tripsData = data[1];
-    destinationsData = data[2]
+    travelers = data[0];
+    trips = data[1];
+    destinations = data[2]
   })
   .then(() => {
-    dataRepository = new DataRepository([travelersData, tripsData, destinationsData]);
-    agency = new Agency([travelersData, tripsData, destinationsData])
-    console.log(data)
+    dataRepository = new DataRepository([travelers, trips, destinations]);
+    agency = new Agency([travelers, trips, destinations])
+    console.log('data', dataRepository)
   })
   .catch(err => {
     console.log(err.message)
   })
+
+function clickHandler() {
+  if (event.target.classList.contains('submit-button')) {
+    validateForm()
+  }
+}
+
+
+function validateForm() {
+  let userName = document.querySelector('.user-name');
+  let password = document.querySelector('.password');
+  let errorMessage = document.querySelector('.error-message')
+  const regex = /^traveler([1-9]|[1-4][0-9]|50)$/;
+  const validPassword = 'travel2020';
+  
+  if (regex.test(userName.value) && password.value === validPassword) {
+    console.log('traveler')
+    // i need to be able to isolate and return all data related to this traveler
+    // probably search dataRepository
+    // instantiate this traveler with relevant information
+    // cards to display traveler information
+  
+  } 
+  
+  if (userName.value === 'agency' && password.value === validPassword) {
+    console.log('agency')
+    // instantiate the agency
+    // display all pending trips
+    // need a search functionality for date and for user
+
+  } 
+  
+  if (regex.test(userName.value) || userName.value === 'agency' && password.value !== validPassword) {
+    password.value = ''
+    errorMessage.innerText = 'Invalid Password' 
+  }
+
+  if (!regex.test(userName.value) || userName.value !== 'agency' && password === validPassword) {
+    userName.value = ''
+    errorMessage.innerText = 'Invalid Username'
+  } 
+}
+  
