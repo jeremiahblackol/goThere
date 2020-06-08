@@ -2,7 +2,7 @@ import DataRepository from '../src/DataRepository.js'
 
 
 class Traveler {
-  constructor(travelerData, data) {
+  constructor(travelerData) {
     this.id = travelerData.id;
     this.name = travelerData.name;
     this.travelerType = travelerData.travelerType;
@@ -10,7 +10,7 @@ class Traveler {
   }
 
   returnTravelerTrips(data) {
-    this.trips = data.trips.filter((trip) => trip.userID === this.id)
+    this.trips = data.filter((trip) => trip.userID === this.id)
     return this.trips
   }
 
@@ -26,6 +26,19 @@ class Traveler {
 
   returnPendingTrips() {
     return this.trips.filter((trip) => trip.status === 'pending')
+  }
+
+  returnTravelerTotalSpent(data) {
+    let tripsPaidFor = this.trips.filter((trip) => trip.status === 'approved')
+    return tripsPaidFor.reduce((totalCost, trip) => {
+      data.forEach((destination) => {
+        if (trip.destinationID === destination.id) {
+          let cost = (destination.estimatedFlightCostPerPerson + destination.estimatedLodgingCostPerDay) * trip.travelers
+          totalCost += cost + (cost * .1)
+        }
+      })
+      return Number(totalCost.toFixed(2))
+    }, 0)
   }
 }
 

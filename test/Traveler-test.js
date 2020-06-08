@@ -41,7 +41,7 @@ describe('Traveler', function() {
   it('should have an array of all traveler trips', function() {
     let traveler2 = new Traveler(dataRepository.findTraveler(6))
     expect(traveler.returnTravelerTrips).to.be.a('function');
-    expect(traveler.returnTravelerTrips(dataRepository)).to.deep.equal([
+    expect(traveler.returnTravelerTrips(dataRepository.trips)).to.deep.equal([
       {
         id: 22,
         userID: 12,
@@ -64,7 +64,7 @@ describe('Traveler', function() {
       }
     ]);
 
-    expect(traveler2.returnTravelerTrips(dataRepository)).to.deep.equal([
+    expect(traveler2.returnTravelerTrips(dataRepository.trips)).to.deep.equal([
       {
         id: 33,
         userID: 6,
@@ -79,7 +79,7 @@ describe('Traveler', function() {
   });
 
   it('should have an object if traveler has a trip today', function() {
-    traveler.returnTravelerTrips(dataRepository)
+    traveler.returnTravelerTrips(dataRepository.trips)
     expect(traveler.returnCurrentTrip('2020/05/22')).to.deep.equal( {
       id: 3,
       userID: 12,
@@ -98,7 +98,7 @@ describe('Traveler', function() {
 
 
   it('should return an array of traveler\'s pending trips', function() {
-    traveler.returnTravelerTrips(dataRepository)
+    traveler.returnTravelerTrips(dataRepository.trips)
     expect(traveler.returnPendingTrips()).to.deep.equal([{
       "id": 22,
       "userID": 12,
@@ -111,12 +111,9 @@ describe('Traveler', function() {
     }])
   });
 
-  it('should have an array of traveler\'s past trips', function() {
-    expect(traveler.pastTrips).to.be.an('array');
-  });
-
-  it.skip('should be able to return traveler\'s total money spent on trips', function() {
-    expect(traveler.futureTrips).to.be.an('array');
+  it('should be able to return the total a traveler spent on trips', function() {
+    traveler.returnTravelerTrips(dataRepository.trips)
+    expect(traveler.returnTravelerTotalSpent(dataRepository.destinations)).to.equal(4501.20)
   });
 });
     

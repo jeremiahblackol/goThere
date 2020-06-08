@@ -120,7 +120,7 @@ const destinations = [{
   "alt": "colorful buildings near the water with docked boats"
 },
 {
-  "id": 16,
+  "id": 22,
   "destination": "Bangkok, Thailand",
   "estimatedLodgingCostPerDay": 35,
   "estimatedFlightCostPerPerson": 988,
