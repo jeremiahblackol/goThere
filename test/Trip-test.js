@@ -19,15 +19,19 @@ describe('Trip', function() {
     expect(Trip).to.be.a('function');
   });
   
-  it.skip('should instantiate new DataRepositories', function() {
+  it.skip('should instantiate new trip', function() {
     expect(trip).to.be.an.instanceof(Trip);
   });
   
-  it.skip('should be able to hold an array of all data', function() {
-    expect(dataRepository.allData).to.be.an('array');
-    expect(dataRepository.allData[0]).to.be.an('array');
-    expect(dataRepository.allData[1]).to.be.an('array');
-    expect(dataRepository.allData[2]).to.be.an('array');
+  it.skip('should have an id, userID, destinationID, travelers, date, duration, status, suggestedActivities', function() {
+    expect(trip.id).to.equal('array');
+    expect(trip.userID).to.equal('array');
+    expect(trip.destinationID).to.equal('array');
+    expect(trip.travelers).to.equal('array');
+    expect(trip.date).to.equal('array');
+    expect(trip.duration).to.equal('array');
+    expect(trip.status).to.equal('array');
+    expect(trip.suggestedActivities).to.equal('array');
   });
 });
   

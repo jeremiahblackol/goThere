@@ -113,7 +113,7 @@ describe('Traveler', function() {
 
   it('should be able to return the total a traveler spent on trips', function() {
     traveler.returnTravelerTrips(dataRepository.trips)
-    expect(traveler.returnTravelerTotalSpent(dataRepository.destinations)).to.equal(4501.20)
+    expect(traveler.returnTravelerTotalSpent(dataRepository.destinations)).to.equal(6965.20)
   });
 });
     
