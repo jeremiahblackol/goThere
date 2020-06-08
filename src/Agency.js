@@ -15,17 +15,22 @@ class Agency extends DataRepository {
         return 1
       }
     })
-    // let shallowCopyOfTrips = this.trips.slice()
-    // let tripsWithSplitDates = shallowCopyOfTrips.map((trip) => {
-    //   trip.date = trip.date.split('/')
-    //   return trip
-    // })
+  }
 
-    // let tripsSortedByYear = tripsWithSplitDates.sort((a, b) => a.date[0] - b.date[0])
-    // // let tripsSortedByMonth = tripsSortedByYear.reduce((byMonth, trip) => {
+  returnAllPendingTrips() {
+    return this.trips.filter((trip) => {
+      return trip.status === 'pending' ? trip : null
+    })
+  }
 
-    // // }, [])
-    // console.log(tripsSortedByYear)
+  approveTripRequest(id) {
+    if (id === Number(id)) {
+      return this.trips.find((trip) => {
+        return trip.id === id && trip.status === 'pending' ? trip.status = 'approved' : null
+      })
+    } else {
+      return 'Sorry, invalid trip!'
+    }
   }
 }
 

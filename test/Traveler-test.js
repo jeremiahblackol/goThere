@@ -12,8 +12,8 @@ describe('Traveler', function() {
 
   let traveler;
   let travelerInfo;
-  let dataReopsitory;
   let data;
+  let dataRepository;
     
   beforeEach(() => {
 
@@ -24,40 +24,82 @@ describe('Traveler', function() {
            
   })
     
-  it.skip('should be a function', function() {
+  it('should be a function', function() {
     expect(Traveler).to.be.a('function');
   });
     
-  it.skip('should be an instance of traveler', function() {
+  it('should be an instance of traveler', function() {
     expect(traveler).to.be.an.instanceof(Traveler);
   });
     
-  it.skip('should have an id, name, and traveler type', function() {
+  it('should have an id, name, and traveler type', function() {
     expect(traveler.id).to.equal(12);
     expect(traveler.name).to.equal("Lannie Heynel");
     expect(traveler.travelerType).to.equal("history buff");
   });
 
-  it.skip('should have an object if traveler has a trip today', function() {
-    expect(traveler.returnRurrentTrip(/*current date*/)).to.be.an('object');
-    // write a sad path test for what happens if traveler is not traveling on date
-    expect(traveler.returnRurrentTrip(/*different date*/)).to.be.a('string');
-    // how are we going to pass date in
+  it('should have an array of all traveler trips', function() {
+    let traveler2 = new Traveler(dataRepository.findTraveler(6))
+    expect(traveler.returnTravelerTrips).to.be.a('function');
+    expect(traveler.returnTravelerTrips(dataRepository)).to.deep.equal([
+      {
+        id: 22,
+        userID: 12,
+        destinationID: 9,
+        travelers: 4,
+        date: '2020/05/01',
+        duration: 19,
+        status: 'pending',
+        suggestedActivities: []
+      },
+      {
+        id: 3,
+        userID: 12,
+        destinationID: 22,
+        travelers: 4,
+        date: '2020/05/22',
+        duration: 17,
+        status: 'approved',
+        suggestedActivities: []
+      }
+    ]);
 
+    expect(traveler2.returnTravelerTrips(dataRepository)).to.deep.equal([
+      {
+        id: 33,
+        userID: 6,
+        destinationID: 36,
+        travelers: 5,
+        date: '2020/03/26',
+        duration: 19,
+        status: 'approved',
+        suggestedActivities: []
+      }
+    ]);
   });
 
-  it.skip('should return an array of traveler\'s pending trips', function() {
+  it('should have an object if traveler has a trip today', function() {
+    traveler.returnTravelerTrips(dataRepository)
+    expect(traveler.returnCurrentTrip('2020/05/22')).to.deep.equal( {
+      id: 3,
+      userID: 12,
+      destinationID: 22,
+      travelers: 4,
+      date: '2020/05/22',
+      duration: 17,
+      status: 'approved',
+      suggestedActivities: []
+    });
+
+    expect(traveler.returnCurrentTrip(Date.now())).to.equal("Please, use 'YYYY/MM/DD' format");
+    expect(traveler.returnCurrentTrip('2029/42/19')).to.equal('Sorry, no trip today')
+  });
+
+
+
+  it('should return an array of traveler\'s pending trips', function() {
+    traveler.returnTravelerTrips(dataRepository)
     expect(traveler.returnPendingTrips()).to.deep.equal([{
-      "id": 3,
-      "userID": 12,
-      "destinationID": 22,
-      "travelers": 4,
-      "date": "2020/05/22",
-      "duration": 17,
-      "status": "pending",
-      "suggestedActivities": []
-    },
-    {
       "id": 22,
       "userID": 12,
       "destinationID": 9,
@@ -69,7 +111,7 @@ describe('Traveler', function() {
     }])
   });
 
-  it.skip('should have an array of traveler\'s past trips', function() {
+  it('should have an array of traveler\'s past trips', function() {
     expect(traveler.pastTrips).to.be.an('array');
   });
 

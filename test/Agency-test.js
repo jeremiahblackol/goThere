@@ -121,15 +121,15 @@ describe('Agency', function() {
     })
   });
 
-  it.skip('should be able to return all pending trips', function() {
+  it('should be able to return all pending trips', function() {
     expect(agency.returnAllPendingTrips()).to.deep.equal(
       [{
-        "id": 2,
-        "userID": 13,
-        "destinationID": 25,
-        "travelers": 5,
-        "date": "2020/10/04",
-        "duration": 18,
+        "id": 22,
+        "userID": 12,
+        "destinationID": 9,
+        "travelers": 4,
+        "date": "2020/05/01",
+        "duration": 19,
         "status": "pending",
         "suggestedActivities": []
       },
@@ -144,33 +144,22 @@ describe('Agency', function() {
         "suggestedActivities": []
       },
       {
-        "id": 22,
-        "userID": 12,
-        "destinationID": 9,
-        "travelers": 4,
-        "date": "2020/05/01",
-        "duration": 19,
+        "id": 2,
+        "userID": 13,
+        "destinationID": 25,
+        "travelers": 5,
+        "date": "2020/10/04",
+        "duration": 18,
         "status": "pending",
         "suggestedActivities": []
       }])
   });
 
-  it.skip('should be able to approve or deny any user\'s trip, based on trip id', function() {
+  it('should be able to approve user\'s trip, based on trip id', function() {
     // opportunuty to use spies
     // needs to spy on whatever click event in the document wiil call this function
-    expect(agency.approveOrDenyTripRequest(3)).to.be.a('function')
-    expect(agency.allData[1][2]).to.deep.equal({
-      "id": 3,
-      "userID": 12,
-      "destinationID": 22,
-      "travelers": 4,
-      "date": "2020/05/22",
-      "duration": 17,
-      "status": "approved",
-      "suggestedActivities": []
-    })
-
-    expect(dataRepository.allData[1][2]).to.deep.equal({
+    expect(agency.approveTripRequest).to.be.a('function')
+    expect(agency.approveTripRequest(3)).to.deep.equal({
       "id": 3,
       "userID": 12,
       "destinationID": 22,
@@ -182,12 +171,8 @@ describe('Agency', function() {
     })
   });
 
-  it.skip('should return an error message if invalid trip id is passed in', function() {
-    expect(agency.approveOrDenyTripRequest('hat')).to.equal('Sorry, invalid trip!')
-  });
-
-  it.skip('should return an error message if trip id is valid, but cannot be found', function() {
-    expect(agency.approveOrDenyTripRequest(1000)).to.equal('Sorry, trip #1000 cannot be found!')
+  it('should return an error message if invalid trip id is passed in', function() {
+    expect(agency.approveTripRequest('hat')).to.equal('Sorry, invalid trip!')
   });
 });
 
