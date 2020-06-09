@@ -2,8 +2,15 @@
 @import "mixins.scss";
 
 /* This is an example of using Sass, otherwise plain CSS works too*/
-$primary-background: linear-gradient(to left, $primary-color, $primary-accent1);
-;
+$primary-background: $color-one;
+
+header {
+  margin-top: -5em;
+
+  h1 {
+    position: absolute;
+  }
+}
 
 
 body {
@@ -15,9 +22,10 @@ body {
 
 .validation-form {
   width: 55%;
-  height: 24em;
-  background: $secondary-color;
-  padding-left: 5px;
+  height: 28em;
+  background: $color-five;
+  padding-left: 10px;
+  box-shadow: -8px 8px $color-two;
 
   button {
     width: 61%;
