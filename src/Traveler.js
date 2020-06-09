@@ -1,6 +1,3 @@
-import DataRepository from '../src/DataRepository.js'
-
-
 class Traveler {
   constructor(travelerData) {
     this.id = travelerData.id;

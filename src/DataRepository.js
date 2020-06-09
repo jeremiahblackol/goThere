@@ -32,6 +32,11 @@ class DataRepository {
       return 'Sorry, invalid userID!'
     }
   }
+
+  findTrip(tripID) {
+    let trip = this.trips.find((trip) => trip.id === tripID)
+    return trip ? trip : 'Sorry, invalid tripID!'
+  }
 }
 
 export default DataRepository;
