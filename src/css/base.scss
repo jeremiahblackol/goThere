@@ -4,11 +4,16 @@
 /* This is an example of using Sass, otherwise plain CSS works too*/
 $primary-background: $color-one;
 
+* {
+  font-family: $font-one;
+}
+
 header {
-  margin-top: -5em;
+  margin-top: -7em;
 
   h1 {
     position: absolute;
+    font-size: 55px;
   }
 }
 
@@ -27,20 +32,35 @@ body {
   padding-left: 10px;
   box-shadow: -8px 8px $color-two;
 
+  p {
+    font-size: 150%;
+  }
+
   button {
     width: 61%;
     height: 10%;
-    margin-top: 12px;
+    margin-top: 10px;
+    background-color: $color-two;
+    border: none;
+    text-align: left;
+    color: $color-five;
+    font-size: 1.75em;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $color-three;
+    }
   }
 
   input {
     width: 60%;
     height: 10%;
     margin-top: 2px;
+    font-size: 1.65em;
   }
 
   .error-message {
-    margin-top: 47px;
+    margin-top: 11%;
   }
 }
 
