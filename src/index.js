@@ -88,7 +88,6 @@ function validateForm() {
   
   if (userName.value === 'agency' && password.value === validPassword) {
     greetAgent()
-    console.log('agency', agency)
     // instantiate the agency
     // display all pending trips
     // need a search functionality for date and for user
@@ -114,13 +113,19 @@ const instantiateTraveler = (info, tripData) => {
 
 const greetTraveler = () => {
   let body = document.querySelector('body')
+  let spending = traveler.returnTravelerTotalSpent(dataRepository.destinations) 
   body.innerHTML = ''
-  body.insertAdjacentHTML('afterbegin', `<div>Welcome, ${traveler.name}!</div>`)
+  body.insertAdjacentHTML('beforebegin', `<div>Welcome, ${traveler.name}!</div><div>You have spent a total of $${spending} on trips to date!</div>`)
 }
 
 const greetAgent = () => {
   let body = document.querySelector('body')
+  let earnings = agency.returnTotalEarnings()
   body.innerHTML = ''
-  body.insertAdjacentHTML('afterbegin', `<div>Welcome, Travel Agent!</div>`)
+  body.insertAdjacentHTML('beforebegin', `<div>Welcome, Travel Agent!</div><div>You have earned $${earnings} to date!</div>`)
+}
+
+const displayTravelCards = () => {
+
 }
   
