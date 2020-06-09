@@ -17,6 +17,7 @@ class DataRepository {
     }
   }
 
+  // need to refactor this to accomodate all three datasets
   findTraveler(id) {
     if (id === Number(id) && this.travelers.find((traveler) => traveler.id === id)) {
       return this.travelers.find((traveler) => traveler.id === id)
@@ -33,9 +34,15 @@ class DataRepository {
     }
   }
 
+  // this will be part of the refactor
   findTrip(tripID) {
     let trip = this.trips.find((trip) => trip.id === tripID)
     return trip ? trip : 'Sorry, invalid tripID!'
+  }
+
+  findDestination(id) {
+    let destination = this.destinations.find((destination) => destination.id === id)
+    return destination ? destination : 'Sorry, invalid destination!'
   }
 }
 
