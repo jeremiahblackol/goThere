@@ -8,6 +8,8 @@ $primary-background: $color-one;
   font-family: $font-one;
 }
 
+// login form
+
 header {
   margin-top: -7em;
 
@@ -66,4 +68,31 @@ body {
 
 .hidden {
   display: none;
+}
+
+// traveler dashboard
+
+.traveler-header {
+  font-size: 55px;
+  display: block;
+
+  span {
+    color: $color-two
+  }
+}
+
+.traveler-buttons {
+    width: 61%;
+    height: 10%;
+    margin-top: 10px;
+    background-color: $color-two;
+    border: none;
+    text-align: left;
+    color: $color-five;
+    font-size: 1.75em;
+
+    &:hover {
+      cursor: pointer;
+      background-color: $color-three;
+  }
 }

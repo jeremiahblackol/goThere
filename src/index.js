@@ -115,8 +115,8 @@ const greetTraveler = () => {
   let spending = traveler.returnTravelerTotalSpent(dataRepository.destinations) 
   documentBody.innerHTML = ''
   documentBody.insertAdjacentHTML('beforebegin', 
-  `<div>Welcome, ${traveler.name}!</div>
-  <div>You have spent a total of $${spending} on trips to date!</div>
+    `<div class='traveler-header'>Welcome, ${traveler.name}!</div>
+  <div class='traveler-header'>You have spent a total of <span>$${spending}</span> on trips to date!</div>
   <section>
     <button>Pending Trips</button>
     <button>Past Trips</button>
@@ -130,7 +130,7 @@ const greetAgent = () => {
   let earnings = agency.returnTotalEarnings()
   documentBody.innerHTML = ''
   documentBody.insertAdjacentHTML('beforebegin', 
-  `<div>Welcome, Travel Agent!</div>
+    `<div>Welcome, Travel Agent!</div>
     <div>You have earned $${earnings} to date!</div>
     <section>
     <button>Pending Trips</button>
