@@ -1,6 +1,5 @@
 /* eslint-disable max-len */
 const destinations = [{
-    
   "id": 1,
   "destination": "Lima, Peru",
   "estimatedLodgingCostPerDay": 70,
