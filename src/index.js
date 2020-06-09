@@ -10,6 +10,10 @@ import './images/turing-logo.png'
 
 import DataRepository from '../src/DataRepository.js'
 import Agency from '../src/Agency.js'
+import Traveler from '../src/Traveler.js'
+import Trip from '../src/Trip.js'
+
+
 
 console.log('This is the JavaScript entry file - your code begins here.');
 
@@ -22,20 +26,21 @@ let trips;
 let destinations;
 let dataRepository;
 let agency;
+let traveler;
 
 travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
   .then(data => data.json())
-  .then(data => console.log(data.travelers))
+  .then(data => data.travelers)
   .catch(err => console.log(err.message))
 
 trips = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips')
   .then(data => data.json())
-  .then(data => console.log(data.trips))
+  .then(data => data.trips)
   .catch(err => console.log(err.message))
 
 destinations = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/destinations/destinations')
   .then(data => data.json())
-  .then(data => console.log(data.destinations))
+  .then(data => data.destinations)
   .catch(err => console.log(err.message))
 
 
@@ -49,7 +54,6 @@ Promise.all([travelers, trips, destinations])
   .then(() => {
     dataRepository = new DataRepository([travelers, trips, destinations]);
     agency = new Agency([travelers, trips, destinations])
-    console.log('data', dataRepository)
   })
   .catch(err => {
     console.log(err.message)
@@ -70,7 +74,11 @@ function validateForm() {
   const validPassword = 'travel2020';
   
   if (regex.test(userName.value) && password.value === validPassword) {
-    console.log('traveler')
+    const userID = parseInt(userName.value.replace( /^\D+/g, ''));
+    const travelerInfo = dataRepository.findTraveler(userID)
+    instantiateTraveler(travelerInfo, dataRepository.trips)
+    greetTraveler()
+    console.log(traveler)
     // i need to be able to isolate and return all data related to this traveler
     // probably search dataRepository
     // instantiate this traveler with relevant information
@@ -79,7 +87,8 @@ function validateForm() {
   } 
   
   if (userName.value === 'agency' && password.value === validPassword) {
-    console.log('agency')
+    greetAgent()
+    console.log('agency', agency)
     // instantiate the agency
     // display all pending trips
     // need a search functionality for date and for user
@@ -95,5 +104,23 @@ function validateForm() {
     userName.value = ''
     errorMessage.innerText = 'Invalid Username'
   } 
+}
+
+const instantiateTraveler = (info, tripData) => {
+  traveler = new Traveler (info)
+  traveler.returnTravelerTrips(tripData)
+  return traveler
+}
+
+const greetTraveler = () => {
+  let body = document.querySelector('body')
+  body.innerHTML = ''
+  body.insertAdjacentHTML('afterbegin', `<div>Welcome, ${traveler.name}!</div>`)
+}
+
+const greetAgent = () => {
+  let body = document.querySelector('body')
+  body.innerHTML = ''
+  body.insertAdjacentHTML('afterbegin', `<div>Welcome, Travel Agent!</div>`)
 }
   
