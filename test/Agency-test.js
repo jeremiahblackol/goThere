@@ -174,6 +174,10 @@ describe('Agency', function() {
   it('should return an error message if invalid trip id is passed in', function() {
     expect(agency.approveTripRequest('hat')).to.equal('Sorry, invalid trip!')
   });
+
+  it('should return total earnings for the past year', function() {
+    expect(agency.returnTotalEarnings()).to.equal(5382.20)
+  });
 });
 
   
