@@ -89,6 +89,20 @@ describe('DataRepository', function() {
     expect(dataRepository.findTravelerTrips(139)).to.equal('Sorry, invalid userID!')
     expect(dataRepository.findTravelerTrips(1043)).to.equal('Sorry, invalid userID!')
   });
+
+  it('should be able to return a trip', function() {
+    expect(dataRepository.findTrip(1)).to.deep.equal({
+      "id": 1,
+      "userID": 1,
+      "destinationID": 49,
+      "travelers": 1,
+      "date": "2019/09/16",
+      "duration": 8,
+      "status": "approved",
+      "suggestedActivities": []
+    })
+    expect(dataRepository.findTrip('flappy')).to.equal('Sorry, invalid tripID!')
+  });
 });
 
   

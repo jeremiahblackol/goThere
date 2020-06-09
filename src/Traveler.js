@@ -1,6 +1,3 @@
-import DataRepository from '../src/DataRepository.js'
-
-
 class Traveler {
   constructor(travelerData) {
     this.id = travelerData.id;
@@ -33,8 +30,10 @@ class Traveler {
     return tripsPaidFor.reduce((totalCost, trip) => {
       data.forEach((destination) => {
         if (trip.destinationID === destination.id) {
-          let cost = (destination.estimatedFlightCostPerPerson + destination.estimatedLodgingCostPerDay) * trip.travelers
-          totalCost += cost + (cost * .1)
+          let costForFlights = destination.estimatedFlightCostPerPerson * trip.travelers
+          let costForLodging = (destination.estimatedLodgingCostPerDay * trip.travelers) * trip.duration
+          let tripCost = costForFlights + costForLodging
+          totalCost += tripCost + (tripCost * .1)
         }
       })
       return Number(totalCost.toFixed(2))
