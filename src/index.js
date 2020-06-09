@@ -116,8 +116,9 @@ const greetTraveler = () => {
   documentBody.innerHTML = ''
   documentBody.insertAdjacentHTML('beforebegin', 
     `<div class='traveler-header'>Welcome, ${traveler.name}!</div>
-  <div class='traveler-header'>You have spent a total of <span>$${spending}</span> on trips to date!</div>
-  <section>
+  <div class='traveler-header'><h2>You have spent a total of <span>
+  $${spending}</span> on trips to date!</h2></div>
+  <section class='button-section'>
     <button>Pending Trips</button>
     <button>Past Trips</button>
     <button>Today's Trip</button>

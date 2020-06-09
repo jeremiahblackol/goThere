@@ -73,26 +73,36 @@ body {
 // traveler dashboard
 
 .traveler-header {
-  font-size: 55px;
   display: block;
+  font-size: 55px;
 
-  span {
-    color: $color-two
+  h2 {
+    font-size: 40px;
+
+    span {
+      color: $color-two
+    }
   }
 }
 
-.traveler-buttons {
-    width: 61%;
-    height: 10%;
-    margin-top: 10px;
-    background-color: $color-two;
-    border: none;
-    text-align: left;
-    color: $color-five;
-    font-size: 1.75em;
-
-    &:hover {
-      cursor: pointer;
-      background-color: $color-three;
-  }
+.button-section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+    
+  button {
+        width: 15%;
+        height: 3em;
+        margin-top: 10px;
+        background-color: $color-two;
+        border: none;
+        color: $color-five;
+        font-size: 1.5em;
+    
+        &:hover {
+          cursor: pointer;
+          background-color: $color-three;
+      }
+    }
 }
+
