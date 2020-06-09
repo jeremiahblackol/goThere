@@ -42,7 +42,6 @@ class Agency extends DataRepository {
           let costForLodging = (destination.estimatedLodgingCostPerDay * trip.travelers) * trip.duration
           let tripCost = costForFlights + costForLodging
           totalEarnings += tripCost * .1
-          console.log(totalEarnings)
         }
       })
       return Number(totalEarnings.toFixed(2))

@@ -112,20 +112,55 @@ const instantiateTraveler = (info, tripData) => {
 }
 
 const greetTraveler = () => {
-  let body = document.querySelector('body')
   let spending = traveler.returnTravelerTotalSpent(dataRepository.destinations) 
-  body.innerHTML = ''
-  body.insertAdjacentHTML('beforebegin', `<div>Welcome, ${traveler.name}!</div><div>You have spent a total of $${spending} on trips to date!</div>`)
+  documentBody.innerHTML = ''
+  documentBody.insertAdjacentHTML('beforebegin', 
+  `<div>Welcome, ${traveler.name}!</div>
+  <div>You have spent a total of $${spending} on trips to date!</div>
+  <section>
+    <button>Pending Trips</button>
+    <button>Past Trips</button>
+    <button>Today's Trip</button>
+    <button>Upcoming Trips</button>
+    <button>Destinations</button>
+  </section>`)
 }
 
 const greetAgent = () => {
-  let body = document.querySelector('body')
   let earnings = agency.returnTotalEarnings()
-  body.innerHTML = ''
-  body.insertAdjacentHTML('beforebegin', `<div>Welcome, Travel Agent!</div><div>You have earned $${earnings} to date!</div>`)
+  documentBody.innerHTML = ''
+  documentBody.insertAdjacentHTML('beforebegin', 
+  `<div>Welcome, Travel Agent!</div>
+    <div>You have earned $${earnings} to date!</div>
+    <section>
+    <button>Pending Trips</button>
+    <button>Past Trips</button>
+    <button>Today's Trips</button>
+    <button>Upcoming Trips</button>
+    <button>Destinations</button>
+    </section>`)
 }
 
-const displayTravelCards = () => {
-
+const displayTravelCards = (cardArray) => {
+  // cardArray.forEach(())
+  // create a card to display, should wouk with any array
+  // 
 }
+
+// need to create destinations tests & class
+// need a single function to display destinations(for traveler and agency)
+// need a function that will display each of the following 
+/// display pending trips
+/// display past trips
+/// upcoming trips
+/// Todays Trips
+
+// this means i need a function that takes in an array based on the button
+// pushed and adds the cards to the DOM
+
+// I need a date input
+// i need to return trips based on the date input
+
+
+
   
