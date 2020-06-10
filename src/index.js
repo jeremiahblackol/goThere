@@ -163,7 +163,7 @@ const greetAgent = () => {
 
 const destinationCards = () => {
   let cardSection = document.querySelector('.all-cards')
-  cardSection.classList.add('all')
+  cardSection.innerHTML = ''
   dataRepository.destinations.forEach((destinationData) => {
     let destination = new Destination (destinationData)
     cardSection.insertAdjacentHTML('beforeend', `<div id='${destination.id}'
@@ -182,16 +182,18 @@ const destinationCards = () => {
 
 const displayPendingTrips = (whichPendingTrips) => {
   let cardSection = document.querySelector('.all-cards')
-  cardSection.classList.add('all')
+  cardSection.innerHTML = ''
   whichPendingTrips.forEach((tripData) => {
     let trip = new Trip (tripData)
+    trip.addDestinationInfo(dataRepository.destinations)
+    console.log(trip.destinationInfo.image)
     cardSection.insertAdjacentHTML('beforeend', `<div id='${trip.id}'
         class='card'>
         <header id='${trip.id}' class='card-header'>
-        <span id='${trip.id}'>${trip.destinationID}</span>
+        <span id='${trip.id}'>${trip.destinationInfo.destination}</span>
         </header>
-        <img id='${trip.id}' tabindex='0' class='card-picture'
-        src='${trip.image}' alt=${trip.alt}>
+        <img id='${trip.destinationInfo.id}' tabindex='0' class='card-picture'
+        src='${trip.destinationInfo.image}' alt=${trip.destinationInfo.alt}>
         <section>
         <button type='button'>INQUIRE</button>
         </section>
