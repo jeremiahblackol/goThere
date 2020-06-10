@@ -76,7 +76,15 @@ function clickHandler() {
   }
 
   if (event.target.classList.contains('agent-info')) {
-    approveOrDenyTrip(event.target.id)
+    approveOrDenyTripCard(event.target.id)
+  }
+
+  if (event.target.classList.contains('approve')) {
+    approveTrip(Number(event.target.id))
+  }
+
+  if (event.target.classList.contains('deny')) {
+    denyTrip(event.target.id)
   }
 
   if (event.target.classList.contains('inquire')) {
@@ -211,7 +219,7 @@ const travelerOrAgencyPendingTrips = (trip) => {
   return isTraveler ? travelerFooter : agencyFooter 
 }
 
-const approveOrDenyTrip = (id) => {
+const approveOrDenyTripCard = (id) => {
   id = Number(id)
   let cardSection = document.querySelector('.all-cards')
   cardSection.innerHTML = ''
@@ -227,9 +235,32 @@ const approveOrDenyTrip = (id) => {
   <h2>TRAVELER NAME: ${dataRepository.findTraveler(trip.userID).name}</h2>
   <h2>NUMBER OF TRAVELERS: ${trip.travelers}</h2>
   <h2>ESTIMATED TOTAL EARNINGS: $${trip.returnEstimatedCostOfTrip()}</h2>
-  <button>APPROVE</button>
-  <button>DENY</button>
+  <button id='${trip.id}' class='approve'>APPROVE</button>
+  <button id='${trip.id}' class='deny'>DENY</button>
   </div>`)
+}
+
+const approveTrip = (tripID) => {
+  fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'id': tripID, 
+      'status': 'approved'
+    })
+  })
+    .then(response => response.json())
+    .then((data) => {
+      console.log('Success:', data) 
+    })
+    .catch(err => console.log(err.message));
+
+}
+
+const denyTrip = () => {
+
 }
 
 //POST WITH APPROVE BUTTON
