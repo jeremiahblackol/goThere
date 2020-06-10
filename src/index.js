@@ -91,21 +91,11 @@ function validateForm() {
     instantiateTraveler(travelerInfo, dataRepository.trips)
     greetTraveler()
     isTraveler = true;
-    console.log(traveler)
-    // i need to be able to isolate and return all data related to this traveler
-    // probably search dataRepository
-    // instantiate this traveler with relevant information
-    // cards to display traveler information
-  
   } 
   
   if (userName.value === 'agency' && password.value === validPassword) {
     isTraveler = false;
     greetAgent()
-    // instantiate the agency
-    // display all pending trips
-    // need a search functionality for date and for user
-
   } 
   
   if (regex.test(userName.value) || userName.value === 'agency' && password.value !== validPassword) {
@@ -150,15 +140,20 @@ const greetAgent = () => {
   let earnings = agency.returnTotalEarnings()
   documentBody.innerHTML = ''
   documentBody.insertAdjacentHTML('beforebegin', 
-    `<div>Welcome, Travel Agent!</div>
-    <div>You have earned $${earnings} to date!</div>
-    <section>
-    <button>Pending Trips</button>
-    <button>Past Trips</button>
-    <button>Today's Trips</button>
-    <button>Upcoming Trips</button>
-    <button>Destinations</button>
-    </section>`)
+    `<div class='traveler-header' aria-label='welcome'>Welcome, Travel Agent!</div>
+    <div class='traveler-header' aria-label='agent earnings'><h2>You have earned $${earnings} to date!</h2></div>`)
+
+  documentBody.insertAdjacentHTML('afterbegin', `<section class='button-section'>
+    <button class='pending-trips'aria-label='pending trips'>Pending Trips</button>
+    <button aria-label='past trips'>Past Trips</button>
+    <button aria-label='Today's trips'>Today's Trip</button>
+    <button aria-label='upcoming trips'>Upcoming Trips</button>
+    <button class='destinations' aria-label='destinations'>Destinations</button>
+  </section>`)
+
+  documentBody.insertAdjacentHTML('beforeend', 
+    `<section class='all-cards'>
+</section>`)
 }
 
 const destinationCards = () => {
@@ -195,10 +190,20 @@ const displayPendingTrips = (whichPendingTrips) => {
         <img id='${trip.destinationInfo.id}' tabindex='0' class='card-picture'
         src='${trip.destinationInfo.image}' alt=${trip.destinationInfo.alt}>
         <section>
-        <button type='button'>INQUIRE</button>
+        ${travelerOrAgencyPendingTrips(trip)}
         </section>
         </div>`)
   })
+}
+
+const travelerOrAgencyPendingTrips = (trip) => {
+  const travelerFooter = `<p>TRIP PENDING</p>
+  <p>ESTIMATED COST: $${trip.returnEstimatedCostOfTrip()}</p>`
+
+  const agencyFooter = `<button type='button'>APPROVE</button>
+  <button type='button'>DENY</button>`
+
+  return isTraveler ? travelerFooter : agencyFooter 
 }
 
 

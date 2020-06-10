@@ -17,6 +17,13 @@ class Trip {
   addDestinationInfo(data) {
     this.destinationInfo = data.find((destination) => this.destinationID === destination.id)
   }
+
+  returnEstimatedCostOfTrip() {
+    let costForFlights = this.destinationInfo.estimatedFlightCostPerPerson * this.travelers
+    let costForLodging = this.destinationInfo.estimatedLodgingCostPerDay * this.duration
+    let tripCost = costForFlights + costForLodging
+    return tripCost + (tripCost * .1)
+  }
 }
 
 export default Trip;
