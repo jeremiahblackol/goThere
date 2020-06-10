@@ -71,9 +71,16 @@ function clickHandler() {
   }
 
   if (event.target.classList.contains('pending-trips')) {
-    console.log('pending trips')
     let pendingTrips = isTraveler ? traveler.returnPendingTrips() : agency.returnAllPendingTrips()
     displayPendingTrips(pendingTrips)
+  }
+
+  if (event.target.classList.contains('agent-info')) {
+    approveOrDenyTrip(event.target.id)
+  }
+
+  if (event.target.classList.contains('inquire')) {
+    console.log(event.target.id)
   }
 }
 
@@ -169,7 +176,7 @@ const destinationCards = () => {
         <img id='${destination.id}' tabindex='0' class='card-picture'
         src='${destination.image}' alt=${destination.alt}>
         <section>
-        <button type='button'>INQUIRE</button>
+        <button class='inquire' id='${destination.id}'type='button'>INQUIRE</button>
         </section>
         </div>`)
   })
@@ -181,7 +188,6 @@ const displayPendingTrips = (whichPendingTrips) => {
   whichPendingTrips.forEach((tripData) => {
     let trip = new Trip (tripData)
     trip.addDestinationInfo(dataRepository.destinations)
-    console.log(trip.destinationInfo.image)
     cardSection.insertAdjacentHTML('beforeend', `<div id='${trip.id}'
         class='card'>
         <header id='${trip.id}' class='card-header'>
@@ -200,28 +206,39 @@ const travelerOrAgencyPendingTrips = (trip) => {
   const travelerFooter = `<p>TRIP PENDING</p>
   <p>ESTIMATED COST: $${trip.returnEstimatedCostOfTrip()}</p>`
 
-  const agencyFooter = `<button type='button'>APPROVE</button>
-  <button type='button'>DENY</button>`
+  const agencyFooter = `<button class='agent-info'id='${trip.id}' type='button'>INFO</button>`
 
   return isTraveler ? travelerFooter : agencyFooter 
 }
 
+const approveOrDenyTrip = (id) => {
+  id = Number(id)
+  let cardSection = document.querySelector('.all-cards')
+  cardSection.innerHTML = ''
+  let trip = new Trip(dataRepository.findTrip(id))    
+  trip.addDestinationInfo(dataRepository.destinations)
+  cardSection.insertAdjacentHTML('beforeend', `<div id='${trip.id}'
+  class='trip-card'>
+  <header id='${trip.id}' class='card-header'>
+  <span id='${trip.id}'>${trip.destinationInfo.destination}</span>
+  </header>
+  <img id='${trip.destinationInfo.id}' tabindex='0' class='card-picture'
+  src='${trip.destinationInfo.image}' alt=${trip.destinationInfo.alt}>
+  <h2>TRAVELER NAME: ${dataRepository.findTraveler(trip.userID).name}</h2>
+  <h2>NUMBER OF TRAVELERS: ${trip.travelers}</h2>
+  <h2>ESTIMATED TOTAL EARNINGS: $${trip.returnEstimatedCostOfTrip()}</h2>
+  <button>APPROVE</button>
+  <button>DENY</button>
+  </div>`)
+}
+
+//POST WITH APPROVE BUTTON
+//DELETE WITH DENY BUTTON
+//need a create cards function that will generate all cards
+//need a calender to pick dates, an input for number of guests, 
 
 
 
-// need to create destinations tests & class
-// need a single function to display destinations(for traveler and agency)
-// need a function that will display each of the following 
-/// display pending trips
-/// display past trips
-/// upcoming trips
-/// Todays Trips
-
-// this means i need a function that takes in an array based on the button
-// pushed and adds the cards to the DOM
-
-// I need a date input
-// i need to return trips based on the date input
 
 
 
