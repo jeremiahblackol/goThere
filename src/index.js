@@ -84,11 +84,19 @@ function clickHandler() {
   }
 
   if (event.target.classList.contains('deny')) {
-    denyTrip(event.target.id)
+    denyTrip(Number(event.target.id))
   }
 
-  if (event.target.classList.contains('inquire')) {
-    console.log(event.target.id)
+  if (event.target.classList.contains('inquire') && isTraveler) {
+    bookTripCard(event.target.id)
+  }
+
+  if (event.target.classList.contains('book')) {
+    let id = event.target.id
+    let startDate = '2020/08/19'
+    let numberOfTravelers = document.getElementById('traveler-count').value
+    let duration = document.getElementById('trip-duration').value
+    bookTrip(id, startDate, numberOfTravelers, duration)
   }
 }
 
@@ -240,6 +248,34 @@ const approveOrDenyTripCard = (id) => {
   </div>`)
 }
 
+const bookTripCard = (id) => {
+  id = Number(id)
+  let cardSection = document.querySelector('.all-cards')
+  cardSection.innerHTML = ''
+  let destination = new Destination(dataRepository.findDestination(id))    
+  cardSection.insertAdjacentHTML('beforeend', `<div id='${destination.id}'
+  class='trip-card'>
+  <header id='${destination.id}' class='card-header'>
+  <span id='${destination.id}'>${destination.destination}</span>
+  </header>
+  <img id='${destination.id}' tabindex='0' class='card-picture'
+  src='${destination.image}' alt=${destination.alt}>
+  <section>
+  <p>ENTER NUMBER OF TRAVELERS: </p>
+  <input id='traveler-count' type='number'></input>
+  </section>
+  <br>
+  <section>
+  <p>HOW LONG WOULD YOU LIKE TO GO? </p>
+  <input id='trip-duration' type='number'></input>
+  </section>
+  <br>
+  <section class='estimated-cost'></section>
+  <button id='${destination.id}' class='book'>BOOK</button>
+  <button id='${destination.id}' class='estimate'>ESTIMATE COST</button>
+  </div>`)
+}
+
 const approveTrip = (tripID) => {
   fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/updateTrip', {
     method: 'POST',
@@ -256,12 +292,79 @@ const approveTrip = (tripID) => {
       console.log('Success:', data) 
     })
     .catch(err => console.log(err.message));
-
+  fetchTravelersAndTrips
 }
 
-const denyTrip = () => {
-
+const denyTrip = (tripID) => {
+  fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'id': tripID, 
+    })
+  })
+    .then(response => response.json())
+    .then((data) => {
+      console.log(`Trip ${tripID} has been deleted`, data) 
+    })
+    .catch(err => console.log(err.message));
+  fetchTravelersAndTrips()
 }
+
+const bookTrip = (id, startDate, numberOfTravelers, duration) => {
+  fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      'id': Date.now(), 
+      'userID': Number(traveler.id), 
+      'destinationID': Number(id), 
+      'travelers': Number(numberOfTravelers), 
+      'date': startDate, 
+      'duration': Number(duration), 
+      'status': 'pending', 
+      'suggestedActivities': []
+    })
+  })
+    .then(response => response.json())
+    .then((data) => {
+      console.log('Success:', data) 
+    })
+    .catch(err => console.log(err.message));
+  fetchTravelersAndTrips()
+}
+
+
+const fetchTravelersAndTrips = () => {
+  travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
+    .then(data => data.json())
+    .then(data => data.travelers)
+    .catch(err => console.log(err.message))
+
+  trips = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips')
+    .then(data => data.json())
+    .then(data => data.trips)
+    .catch(err => console.log(err.message))
+
+  Promise.all([travelers, trips])
+    .then(data => {
+      travelers = data[0];
+      trips = data[1];
+    })
+    .then(() => {
+      dataRepository = new DataRepository([travelers, trips, destinations]);
+      agency = new Agency([travelers, trips, destinations])
+      console.log(dataRepository)
+    })
+    .catch(err => {
+      console.log(err.message)
+    })
+}
+
 
 //POST WITH APPROVE BUTTON
 //DELETE WITH DENY BUTTON
