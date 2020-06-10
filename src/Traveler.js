@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 class Traveler {
   constructor(travelerData) {
     this.id = travelerData.id;

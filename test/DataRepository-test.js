@@ -5,7 +5,6 @@ import destinations from '../test-data/destinations-test-data.js'
 import trips from '../test-data/trips-test-data.js'
 import travelers from '../test-data/travelers-test-data.js'
 import DataRepository from '../src/DataRepository.js'
-import Trip from '../src/Trip.js'
 
 
 describe('DataRepository', function() {

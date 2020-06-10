@@ -1,22 +1,12 @@
 /* eslint-disable max-len */
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
-import './images/turing-logo.png'
 
 import DataRepository from '../src/DataRepository.js'
 import Agency from '../src/Agency.js'
 import Traveler from '../src/Traveler.js'
 import Trip from '../src/Trip.js'
 import Destination from '../src/Destination.js'
-
-
-
-console.log('This is the JavaScript entry file - your code begins here.');
 
 let documentBody = document.querySelector('body')
 
@@ -45,8 +35,6 @@ destinations = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/d
   .then(data => data.destinations)
   .catch(err => console.log(err.message))
 
-
-// PROMISE
 Promise.all([travelers, trips, destinations])
   .then(data => {
     travelers = data[0];
@@ -292,7 +280,7 @@ const approveTrip = (tripID) => {
       console.log('Success:', data) 
     })
     .catch(err => console.log(err.message));
-  fetchTravelersAndTrips
+  fetchTravelersAndTrips()
 }
 
 const denyTrip = (tripID) => {
@@ -335,7 +323,7 @@ const bookTrip = (id, startDate, numberOfTravelers, duration) => {
       console.log('Success:', data) 
     })
     .catch(err => console.log(err.message));
-  fetchTravelersAndTrips()
+
 }
 
 
@@ -365,11 +353,6 @@ const fetchTravelersAndTrips = () => {
     })
 }
 
-
-//POST WITH APPROVE BUTTON
-//DELETE WITH DENY BUTTON
-//need a create cards function that will generate all cards
-//need a calender to pick dates, an input for number of guests, 
 
 
 
