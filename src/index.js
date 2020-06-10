@@ -28,6 +28,7 @@ let destinations;
 let dataRepository;
 let agency;
 let traveler;
+let isTraveler;
 
 travelers = fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
   .then(data => data.json())
@@ -68,6 +69,12 @@ function clickHandler() {
   if (event.target.classList.contains('destinations')) {
     destinationCards()
   }
+
+  if (event.target.classList.contains('pending-trips')) {
+    console.log('pending trips')
+    let pendingTrips = isTraveler ? traveler.returnPendingTrips() : agency.returnAllPendingTrips()
+    displayPendingTrips(pendingTrips)
+  }
 }
 
 
@@ -83,6 +90,7 @@ function validateForm() {
     const travelerInfo = dataRepository.findTraveler(userID)
     instantiateTraveler(travelerInfo, dataRepository.trips)
     greetTraveler()
+    isTraveler = true;
     console.log(traveler)
     // i need to be able to isolate and return all data related to this traveler
     // probably search dataRepository
@@ -92,6 +100,7 @@ function validateForm() {
   } 
   
   if (userName.value === 'agency' && password.value === validPassword) {
+    isTraveler = false;
     greetAgent()
     // instantiate the agency
     // display all pending trips
@@ -125,7 +134,7 @@ const greetTraveler = () => {
   $${spending}</span> on trips to date!</h2></div>`)
 
   documentBody.insertAdjacentHTML('afterbegin', `<section class='button-section'>
-    <button aria-label='pending trips'>Pending Trips</button>
+    <button class='pending-trips'aria-label='pending trips'>Pending Trips</button>
     <button aria-label='past trips'>Past Trips</button>
     <button aria-label='Today's trips'>Today's Trip</button>
     <button aria-label='upcoming trips'>Upcoming Trips</button>
@@ -133,7 +142,7 @@ const greetTraveler = () => {
   </section>`)
 
   documentBody.insertAdjacentHTML('beforeend', 
-  `<section class='all-cards'>
+    `<section class='all-cards'>
   </section>`)
 }
 
@@ -157,7 +166,6 @@ const destinationCards = () => {
   cardSection.classList.add('all')
   dataRepository.destinations.forEach((destinationData) => {
     let destination = new Destination (destinationData)
-    console.log(destination)
     cardSection.insertAdjacentHTML('beforeend', `<div id='${destination.id}'
         class='card'>
         <header id='${destination.id}' class='card-header'>
@@ -165,6 +173,28 @@ const destinationCards = () => {
         </header>
         <img id='${destination.id}' tabindex='0' class='card-picture'
         src='${destination.image}' alt=${destination.alt}>
+        <section>
+        <button type='button'>INQUIRE</button>
+        </section>
+        </div>`)
+  })
+}
+
+const displayPendingTrips = (whichPendingTrips) => {
+  let cardSection = document.querySelector('.all-cards')
+  cardSection.classList.add('all')
+  whichPendingTrips.forEach((tripData) => {
+    let trip = new Trip (tripData)
+    cardSection.insertAdjacentHTML('beforeend', `<div id='${trip.id}'
+        class='card'>
+        <header id='${trip.id}' class='card-header'>
+        <span id='${trip.id}'>${trip.destinationID}</span>
+        </header>
+        <img id='${trip.id}' tabindex='0' class='card-picture'
+        src='${trip.image}' alt=${trip.alt}>
+        <section>
+        <button type='button'>INQUIRE</button>
+        </section>
         </div>`)
   })
 }
