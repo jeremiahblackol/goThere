@@ -38,6 +38,19 @@ describe('Trip', function() {
     expect(trip.status).to.equal('approved');
     expect(trip.suggestedActivities).to.deep.equal([]);
   });
+
+  it('should be able to add a destination image to trip', function() {
+    trip = new Trip(dataRepository.findTrip(27))     
+    trip.addDestinationInfo(dataRepository.destinations)
+    expect(trip.destinationInfo).to.deep.equal({
+      "id": 7,
+      "destination": "Paris, France",
+      "estimatedLodgingCostPerDay": 100,
+      "estimatedFlightCostPerPerson": 395,
+      "image": "https://images.unsplash.com/photo-1524396309943-e03f5249f002?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80",
+      "alt": "city during the day time with eiffel tower"
+    });
+  });
 });
   
     
