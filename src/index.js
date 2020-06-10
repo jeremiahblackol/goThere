@@ -12,6 +12,7 @@ import DataRepository from '../src/DataRepository.js'
 import Agency from '../src/Agency.js'
 import Traveler from '../src/Traveler.js'
 import Trip from '../src/Trip.js'
+import Destination from '../src/Destination.js'
 
 
 
@@ -62,6 +63,10 @@ Promise.all([travelers, trips, destinations])
 function clickHandler() {
   if (event.target.classList.contains('submit-button')) {
     validateForm()
+  }
+
+  if (event.target.classList.contains('destinations')) {
+    destinationCards()
   }
 }
 
@@ -115,15 +120,20 @@ const greetTraveler = () => {
   let spending = traveler.returnTravelerTotalSpent(dataRepository.destinations) 
   documentBody.innerHTML = ''
   documentBody.insertAdjacentHTML('beforebegin', 
-    `<div class='traveler-header'>Welcome, ${traveler.name}!</div>
-  <div class='traveler-header'><h2>You have spent a total of <span>
-  $${spending}</span> on trips to date!</h2></div>
-  <section class='button-section'>
-    <button>Pending Trips</button>
-    <button>Past Trips</button>
-    <button>Today's Trip</button>
-    <button>Upcoming Trips</button>
-    <button>Destinations</button>
+    `<div class='traveler-header' aria-label='welcome'>Welcome, ${traveler.name}!</div>
+  <div class='traveler-header' aria-label='guest spent'><h2>You have spent a total of <span>
+  $${spending}</span> on trips to date!</h2></div>`)
+
+  documentBody.insertAdjacentHTML('afterbegin', `<section class='button-section'>
+    <button aria-label='pending trips'>Pending Trips</button>
+    <button aria-label='past trips'>Past Trips</button>
+    <button aria-label='Today's trips'>Today's Trip</button>
+    <button aria-label='upcoming trips'>Upcoming Trips</button>
+    <button class='destinations' aria-label='destinations'>Destinations</button>
+  </section>`)
+
+  documentBody.insertAdjacentHTML('beforeend', 
+  `<section class='all-cards'>
   </section>`)
 }
 
@@ -142,11 +152,25 @@ const greetAgent = () => {
     </section>`)
 }
 
-const displayTravelCards = (cardArray) => {
-  // cardArray.forEach(())
-  // create a card to display, should wouk with any array
-  // 
+const destinationCards = () => {
+  let cardSection = document.querySelector('.all-cards')
+  cardSection.classList.add('all')
+  dataRepository.destinations.forEach((destinationData) => {
+    let destination = new Destination (destinationData)
+    console.log(destination)
+    cardSection.insertAdjacentHTML('beforeend', `<div id='${destination.id}'
+        class='card'>
+        <header id='${destination.id}' class='card-header'>
+        <span id='${destination.id}'>${destination.destination}</span>
+        </header>
+        <img id='${destination.id}' tabindex='0' class='card-picture'
+        src='${destination.image}' alt=${destination.alt}>
+        </div>`)
+  })
 }
+
+
+
 
 // need to create destinations tests & class
 // need a single function to display destinations(for traveler and agency)
