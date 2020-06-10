@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 class Traveler {
   constructor(travelerData) {
     this.id = travelerData.id;
@@ -31,7 +32,7 @@ class Traveler {
       data.forEach((destination) => {
         if (trip.destinationID === destination.id) {
           let costForFlights = destination.estimatedFlightCostPerPerson * trip.travelers
-          let costForLodging = (destination.estimatedLodgingCostPerDay * trip.travelers) * trip.duration
+          let costForLodging = destination.estimatedLodgingCostPerDay *  trip.duration
           let tripCost = costForFlights + costForLodging
           totalCost += tripCost + (tripCost * .1)
         }

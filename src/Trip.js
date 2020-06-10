@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 class Trip {
   constructor(tripData) {
     if (tripData instanceof Object) {
@@ -9,7 +10,19 @@ class Trip {
       this.duration = tripData.duration
       this.status = tripData.status
       this.suggestedActivities = tripData.suggestedActivities
+      this.destinationInfo;
     } 
+  }
+
+  addDestinationInfo(data) {
+    this.destinationInfo = data.find((destination) => this.destinationID === destination.id)
+  }
+
+  returnEstimatedCostOfTrip() {
+    let costForFlights = this.destinationInfo.estimatedFlightCostPerPerson * this.travelers
+    let costForLodging = this.destinationInfo.estimatedLodgingCostPerDay * this.duration
+    let tripCost = costForFlights + costForLodging
+    return tripCost + (tripCost * .1)
   }
 }
 
